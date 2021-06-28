@@ -1,9 +1,3 @@
-[//]: # (Image References)
-
-[image1]: results\videos\final.gif "Trained Agent"
-
-
-
 # Multiagent SAC
 
 ### Introduction
@@ -59,7 +53,8 @@ The environment is considered solved, when the average (over 100 episodes) of th
 │   ├── plot
 │   ├── videos              # stores simulation videos and gifs               
 ├── main 
-├── README
+├── README.md
+├── Report.md
 ├── Tennis.exe
 ```
 
