@@ -1,0 +1,5 @@
+config == 0.4.2
+matplotlib == 3.0.2
+numpy == 1.16.0
+torch == 1.0.1.post2
+unityagents == 0.4.0

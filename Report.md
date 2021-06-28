@@ -6,12 +6,13 @@ The goal of this project was to solve the Tenis unity environment using multi ag
 The task is solved when the average score (over 100 episode) is above 0.5. The score for each episode is the maximum of the undiscounted reward of each agent. 
 
 ### Agent Design
+Soft-Actor-Critic is the strategy of choice.
 
-The approach stems from the [Multi Agent Deep Determinstic Policy Gradients](https://arxiv.org/pdf/1509.02971.pdf). With MADDPG they use centralized training and decentralized execution in that the critic has infomation about all states and actions while policy only stores the an agents state and/or actions. This attempt was successful but it took a long time to stabilize and reach the target of 0.5 over 100 episodes.
+The approach stems from the [Multi Agent Deep Determinstic Policy Gradients](https://arxiv.org/pdf/1509.02971.pdf). With MADDPG centralized training and decentralized execution in that the critic has infomation about all states and actions while policy only stores the an agents state and/or actions. This was extended to Soft-Actor-Critic (Implementation) which was successful but took longer to stabilize and reach the target of 0.5 over 100 episodes.
 
-On a second approach, we decentralized the training and execution. Each critic and actor only had information pertaining to the current agent. There was an increase in average score and simulation run-time.
+On a second approach sticking with Soft-Actor-Critic Method, we decentralized the training and execution. Each critic and actor only had information pertaining to the current agent. There was an increase in average score and simulation run-time.
 
-The benefit of using the soft actor critic method (SAC) is that we can maximize the agent reward, and entropy which helps sample efficiency. Also, we used a replay buffer that starts of with uniform sampling and changes to priroty based sampling once we have enough experience stored in the buffer. 
+The benefit of using the **soft actor critic method (SAC)** is that we can maximize the agent reward, and entropy which helps sample efficiency. Also, we used a replay buffer that starts of with uniform sampling and changes to priroty based sampling once we have enough experience stored in the buffer. 
 
 ### Model Information
 Seven different networks were used:
@@ -101,6 +102,11 @@ And when fully trained:
 </p>
 
 When evaluated on the Fully trained agent, we achieved a score of 2.38 with a standard deviation of 0.76
+
+### Future Improvements
+1) In the scheme we started with uniform sampling then changed to prioritized sampling when enough experience has been stored in the memory buffer. This was done to shorten the wait time to prepopulate the buffer if we were to use prioritized replay all through. Can explore the benefits of using prioritized replay all through.
+2) MADDPG added noise to the action during storage and training which in theory would make it more robust. This concept can be applied as well.
+3) Fine tune network parameters to see if faster learning is possible and possibily explore the impact of batch normalization during training. 
 
 ### Credit
 Most of the code structure for SAC followed this projects [here](https://github.com/mimoralea/gdrl/blob/master/notebooks/chapter_12/chapter-12.ipynb)

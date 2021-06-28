@@ -33,9 +33,10 @@ The environment is considered solved, when the average (over 100 episodes) of th
 
 2. Place the file in the `TennisEnvironment/` folder, and unzip (or decompress) the file. 
 3. `conda create --name drlnd python3.6`
-4. `source activate masac`
-5. clone the repository `git clone https://github.com/Oreoluwa-Se/MultiAgent-SAC-Tennis.git`
-6. Install requirements with `pip install -r requirements.txt`
+4. `activate drlnd`
+5. Install requirements with `pip install -r requirements.txt`
+
+More installation instructions can be found [here](https://github.com/udacity/deep-reinforcement-learning#dependencies).
 
 ### Project Directory:
 ```
