@@ -83,13 +83,24 @@ We were able to get an average score (over 100 episode) of 0.5 in about 1462 epi
 <img src="./results/plot/Final_Evaluation score.png">
 </p>
 
-During training stage reward was tracked using the maximum reward from either agent during an episode. However, during evaluation, the average of both agents was the reward marker. The graph of the result is shown below. 
+During training stage reward was tracked using the maximum reward from either agent during an episode. However, during evaluation, the average of both agents was the reward marker. The graph of the result is shown below. The black dotted line shows the average reward per episode and green area shows max and min per 100 episodes.
+
 <p align="center">
 <img src="./results/plot/Reward_per_episodes.png">
 </p>
-The saved weights can be found in the results checkpoint directory
+The saved weights can be found in the results checkpoint directory. 
 
+Gif of the agent halfway through the training cycle:
+<p align="center">
+<img src="./results/videos/learning.gif">
+</p>
+
+And when fully trained:
+<p align="center">
+<img src="./results/videos/final.gif">
+</p>
+
+When evaluated on the Fully trained agent, we achieved a score of 2.38
 
 ### Credit
-
 Most of the code structure for SAC followed this projects [here](https://github.com/mimoralea/gdrl/blob/master/notebooks/chapter_12/chapter-12.ipynb)
