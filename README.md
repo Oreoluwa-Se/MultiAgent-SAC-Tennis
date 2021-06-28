@@ -1,7 +1,7 @@
 [//]: # (Image References)
 
-[image1]: https://user-images.githubusercontent.com/10624937/42135623-e770e354-7d12-11e8-998d-29fc74429ca2.gif "Trained Agent"
-[image2]: https://user-images.githubusercontent.com/10624937/42135622-e55fb586-7d12-11e8-8a54-3c31da15a90a.gif "Soccer"
+[image1]: results\videos\final.gif "Trained Agent"
+
 
 
 # Multiagent SAC
@@ -36,9 +36,9 @@ The environment is considered solved, when the average (over 100 episodes) of th
     (_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux_NoVis.zip) to obtain the "headless" version of the environment.  You will **not** be able to watch the agent without enabling a virtual screen, but you will be able to train the agent.  (_To watch the agent, you should follow the instructions to [enable a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md), and then download the environment for the **Linux** operating system above._)
 
 2. Place the file in the `TennisEnvironment/` folder, and unzip (or decompress) the file. 
-3. `conda create --name masac python3.6`
+3. `conda create --name drlnd python3.6`
 4. `source activate masac`
-5. clone the repository `git clone https://github.com/kantologist/multiagent-sac.git`
+5. clone the repository `git clone https://github.com/Oreoluwa-Se/MultiAgent-SAC-Tennis.git`
 6. Install requirements with `pip install -r requirements.txt`
 
 ### Project Directory:
@@ -59,7 +59,6 @@ The environment is considered solved, when the average (over 100 episodes) of th
 ├── main 
 ├── README
 ├── Tennis.exe
-
 ```
 
 ### Instructions
