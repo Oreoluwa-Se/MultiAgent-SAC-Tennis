@@ -100,7 +100,7 @@ And when fully trained:
 <img src="./results/videos/final.gif">
 </p>
 
-When evaluated on the Fully trained agent, we achieved a score of 2.38
+When evaluated on the Fully trained agent, we achieved a score of 2.38 with a standard deviation of 0.76
 
 ### Credit
 Most of the code structure for SAC followed this projects [here](https://github.com/mimoralea/gdrl/blob/master/notebooks/chapter_12/chapter-12.ipynb)
