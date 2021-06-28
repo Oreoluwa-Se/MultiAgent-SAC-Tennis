@@ -7,34 +7,89 @@ The task is solved when the average score (over 100 episode) is above 0.5. The s
 
 ### Agent Design
 
-The approach uA centralized training, centralized execution approach was used for multi agent learning. All agents shared the same Soft Actor Critic(SAC) network. Transitions of state, action, next state and reward of all agents were stored in the same replay buffer of a maximum size 10000. Transitions from the buffer were later sampled for updating the agent. SAC is able to maximize both the agent's reward and entropy thereby leading to a much more sample efficient and stable learning process. 
+The approach stems from the [Multi Agent Deep Determinstic Policy Gradients](https://arxiv.org/pdf/1509.02971.pdf). With MADDPG they use centralized training and decentralized execution in that the critic has infomation about all states and actions while policy only stores the an agents state and/or actions. This attempt was successful but it took a long time to stabilize and reach the target of 0.5 over 100 episodes.
 
-### Model Architecture
+On a second approach, we decentralized the training and execution. Each critic and actor only had information pertaining to the current agent. There was an increase in average score and simulation run-time.
 
-Four different networks were used. Two Q-functions to reduce ploicy bias, one V-function which was softly updated to deal with stability and a actor network.
+The benefit of using the soft actor critic method (SAC) is that we can maximize the agent reward, and entropy which helps sample efficiency. Also, we used a replay buffer that starts of with uniform sampling and changes to priroty based sampling once we have enough experience stored in the buffer. 
+
+### Model Information
+Seven different networks were used:
+1) Four for estimating the state value given states and action vectors. 
+     ```
+     online_value_model_a
+     target_value_model_a
+     online_value_model_b
+     target_value_model_b
+     ```
+2) Two for estimating the state value given states only. For calculating the advantage
+     ```
+     online_state_model_v
+     target_state_model_v
+     ```
+3) One function for predicting the actions to take: For calculating the advantage
+     ```
+     policy_model
+     ```
+For more information on how the models work, the **Env_Agent_Interact** script annotates the steps.
 
 ### Parameters
 
-All Four networks were trained with adam optimizers using the same learning rate of 3e-4 and a batch size of 64. The parameters used are describe in the table below. 
+All networks were trained with adam optimizers using the same learning rate of 5e-4 and a batch size of 1024. The parameters used are describe in the table below. 
 
-|  Name | Data Type  | Use  | Value |
-|:------:|:-----------:|:-----:|:------:|
-| Buffer size  |  int |  configuration for maximum capacity of the replay buffer |10000|
-| Learning rate  | float  |  model learing rate | 3e-4|
-|  Tau | int  | Controls the soft update of target network | 5e-3|
-| Epsilon Decay | float | This determines how the epsilon decreases during training| 0.9 |
-| Gamma | float | discount factor | 0.99 |
-|Initial Random Steps| int | determines how many random step is taken before exploiting the model |1e2 |
-| Policy Update Frequency | int | determines the frequency of updating the policy | 2 |
+```
+    # current seed parameter
+    seed = 12
+
+    # information for actor [action prediction]
+    policy_info = {"hidden_dims":[256, 256],
+                   "learning_rate":0.0005,
+                   "max_grad_norm":float("inf")}
+
+    # information for critics and state value estimators
+    value_info = {"hidden_dims":[256, 256],
+                  "learning_rate":0.0005,
+                  "max_grad_norm":float("inf")}
+
+    # general training information
+    training_info = {"update_every_steps": 1,
+                     "n_warmup_batches": 2,
+                     "weight_mix_ratio": 0.005}
+
+    # environment information
+    env_info = {"gamma": 0.95,
+                "max_minutes": 300,
+                "max_episodes": 2000,
+                "goal_mean_100_rewards": 0.5}
+        
+    # replay buffer storage
+    buffer_info = {"capacity":100000,
+                   "batch_size": 1024}
+
+    # number of training checkpoints to be saved 
+    checkpoints = 4
+
+    # results storage folder location
+    result_storage = "results"
+
+    # number of times we sample the memory buffer per update step
+    optim_iter = 1 
+```
 
 ### Results
 
-We were able to get an average score (over 100 episode) of 0.5 in about 800 episodes. The graph of the result is shown below. The graph also includes the q-function losses, the v-function loss and the actor loss. The saved weights can be found in the model_weight directory as `model_weight/mqf1.pt`,
-`model_weight/mqf2.pt`, `model_weight/mvf.pt` and `model_weight/mactor.pt`
+We were able to get an average score (over 100 episode) of 0.5 in about 1462 episodes. 
+<p align="center">
+<img src="./results/plot/Final_Evaluation score.png">
+</p>
 
-![results](plots/masac_result.png)
-![results](plots/masac_loss.png)
+During training stage reward was tracked using the maximum reward from either agent during an episode. However, during evaluation, the average of both agents was the reward marker. The graph of the result is shown below. 
+<p align="center">
+<img src="./results/plot/Reward_per_episodes.png">
+</p>
+The saved weights can be found in the results checkpoint directory
+
 
 ### Credit
 
-Most of the code structure for SAC followed this projects [here](https://github.com/MrSyee/pg-is-all-you-need)
+Most of the code structure for SAC followed this projects [here](https://github.com/mimoralea/gdrl/blob/master/notebooks/chapter_12/chapter-12.ipynb)
