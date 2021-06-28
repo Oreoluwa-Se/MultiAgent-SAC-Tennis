@@ -43,26 +43,24 @@ The environment is considered solved, when the average (over 100 episodes) of th
 
 ### Project Directory:
 ```
-├── config                           # build files for program
-│   ├── __init__
-│   ├── config     # stores the settings for running program
-│── helpers                            # holds helper functions for program
-│   ├── agent # holds scripts for single and multi agents
-│   ├── env # environment utility function
-│   ├── neural # holds script for actor and critic networks
-│   ├── utils # stores the replay buffer script
-│   ├── env_agent_interact # handles interaction between environment and agents
-│   ├── script_handlers # handles the trainig and evaluation scripts                   
+├── config                           
+│   ├── config              # stores the settings for running program
+│── helpers                 # holds helper functions for program
+│   ├── agent               # holds scripts for single and multi agents
+│   ├── env                 # environment utility function
+│   ├── neural              # holds script for actor and critic networks
+│   ├── utils               # stores the replay buffer script
+│   ├── env_agent_interact  # handles interaction between environment and agents
+│   ├── script_handlers     # handles the trainig and evaluation scripts                   
 ├── results                     
-│   ├── checkpoints       # holds model state dictonary at checkpoint intervals
+│   ├── checkpoints         # holds model state dictonary at checkpoint intervals
 │   ├── plot
-│   ├── videos # stores simulation videos and gifs               
+│   ├── videos              # stores simulation videos and gifs               
 ├── main 
 ├── README
 ├── Tennis.exe
 
 ```
-
 
 ### Instructions
 
